@@ -121,8 +121,10 @@ function MapWrapper(props) {
   },[props.features])
 
   useEffect( () => {
-    console.log(selectedCode)
-  },[selectedCode])
+    if(featuresLayer){
+      featuresLayer.changed()
+    }
+  },[featuresLayer, selectedCode])
 
   const handleChange = (event) => {
     setSelectedCode(event.target.value)
