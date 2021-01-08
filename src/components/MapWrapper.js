@@ -11,6 +11,9 @@ import XYZ from 'ol/source/XYZ'
 
 import { Fill, Stroke, Style } from 'ol/style'
 
+// Set global variable:
+//   - to be changed in React hook
+//   - to be used in OpenLayers style function
 let globalSelectedCode = 'A'
 
 const redPolygonStyle = new Style({
@@ -38,10 +41,15 @@ function MapWrapper(props) {
   // set intial state
   const [ map, setMap ] = useState()
   const [ featuresLayer, setFeaturesLayer ] = useState()
+  // const [ selectedCode , setSelectedCode ] = useState('A')
   const [ selectedCode , setSelectedCode ] = useState(globalSelectedCode)
 
+  // Get style for polygon
   function getPolygonStyle(feature) {
     const code = feature.get('code')
+    // if (code === selectedCode) {         // This version seems to be always using the initial value of selectedCode,\
+                                            // not the updated version. If selectedCode is initialized as "A", function will 
+                                            // make feature with code A red even if selectedCode is updated.
     if (code === globalSelectedCode) {
       return redPolygonStyle
     }
@@ -123,13 +131,14 @@ function MapWrapper(props) {
   },[props.features])
 
   useEffect( () => {
-    globalSelectedCode = selectedCode
+    globalSelectedCode = selectedCode   // update global variable based on component state
     if(featuresLayer){
-      featuresLayer.changed()
+      featuresLayer.changed()           // repaint the layer.
     }
   },[featuresLayer, selectedCode])
 
   const handleChange = (event) => {
+    // update selectedCode based on user input in combobox.
     setSelectedCode(event.target.value)
   }
 
