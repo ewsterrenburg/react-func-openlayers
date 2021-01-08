@@ -17,6 +17,7 @@ function MapWrapper(props) {
   const [ map, setMap ] = useState()
   const [ featuresLayer, setFeaturesLayer ] = useState()
   const [ selectedCoord , setSelectedCoord ] = useState()
+  const [ selectedCode , setSelectedCode ] = useState('A')
 
   // pull refs
   const mapElement = useRef()
@@ -109,6 +110,10 @@ function MapWrapper(props) {
     
   }
 
+  const handleChange = (event) => {
+    setSelectedCode(event.target.value)
+  }
+
   // render component
   return (      
     <div>
@@ -116,7 +121,18 @@ function MapWrapper(props) {
       <div ref={mapElement} className="map-container"></div>
       
       <div className="clicked-coord-label">
-        <p>{ (selectedCoord) ? toStringXY(selectedCoord, 5) : '' }</p>
+        <form>
+          <label>
+            Select a polygoncode:
+            <select value={selectedCode} onChange={handleChange}>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
+          </label>
+        </form>
+        <p>{ (selectedCode) ? selectedCode : 'No selection' }</p>
       </div>
 
     </div>
