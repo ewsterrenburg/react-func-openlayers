@@ -38,6 +38,14 @@ function MapWrapper(props) {
   const [ featuresLayer, setFeaturesLayer ] = useState()
   const [ selectedCode , setSelectedCode ] = useState('A')
 
+  function getPolygonStyle(feature) {
+    const code = feature.get('code')
+    if (code === selectedCode) {
+      return redPolygonStyle
+    }
+    return yellowPolygonStyle
+  }
+
   // pull refs
   const mapElement = useRef()
   
@@ -52,7 +60,7 @@ function MapWrapper(props) {
     // create and add vector source layer
     const initalFeaturesLayer = new VectorLayer({
       source: new VectorSource(),
-      style: yellowPolygonStyle
+      style: getPolygonStyle
     })
 
     // create map
