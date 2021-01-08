@@ -22,6 +22,15 @@ const redPolygonStyle = new Style({
     color: 'rgba(228, 31, 24, 0.7)'
   })
 })
+const yellowPolygonStyle = new Style({
+  stroke: new Stroke({
+    color: 'rgba(0, 0, 0, 0.4)',
+    width: 0
+  }),
+  fill: new Fill({
+    color: 'rgba(255, 217, 35, 0.7)'
+  })
+})
 
 function MapWrapper(props) {
 
@@ -45,7 +54,7 @@ function MapWrapper(props) {
     // create and add vector source layer
     const initalFeaturesLayer = new VectorLayer({
       source: new VectorSource(),
-      style: redPolygonStyle
+      style: yellowPolygonStyle
     })
 
     // create map
