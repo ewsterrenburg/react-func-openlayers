@@ -11,6 +11,8 @@ import XYZ from 'ol/source/XYZ'
 
 import { Fill, Stroke, Style } from 'ol/style'
 
+let globalSelectedCode = 'A'
+
 const redPolygonStyle = new Style({
   stroke: new Stroke({
     color: 'rgba(0, 0, 0, 0.4)',
@@ -36,11 +38,11 @@ function MapWrapper(props) {
   // set intial state
   const [ map, setMap ] = useState()
   const [ featuresLayer, setFeaturesLayer ] = useState()
-  const [ selectedCode , setSelectedCode ] = useState('A')
+  const [ selectedCode , setSelectedCode ] = useState(globalSelectedCode)
 
   function getPolygonStyle(feature) {
     const code = feature.get('code')
-    if (code === selectedCode) {
+    if (code === globalSelectedCode) {
       return redPolygonStyle
     }
     return yellowPolygonStyle
@@ -121,6 +123,7 @@ function MapWrapper(props) {
   },[props.features])
 
   useEffect( () => {
+    globalSelectedCode = selectedCode
     if(featuresLayer){
       featuresLayer.changed()
     }
