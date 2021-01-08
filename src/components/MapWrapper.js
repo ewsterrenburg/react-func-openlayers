@@ -11,6 +11,18 @@ import XYZ from 'ol/source/XYZ'
 import {transform} from 'ol/proj'
 import {toStringXY} from 'ol/coordinate';
 
+import { Fill, Stroke, Style } from 'ol/style'
+
+const redPolygonStyle = new Style({
+  stroke: new Stroke({
+    color: 'rgba(0, 0, 0, 0.4)',
+    width: 0
+  }),
+  fill: new Fill({
+    color: 'rgba(228, 31, 24, 0.7)'
+  })
+})
+
 function MapWrapper(props) {
 
   // set intial state
@@ -32,7 +44,8 @@ function MapWrapper(props) {
 
     // create and add vector source layer
     const initalFeaturesLayer = new VectorLayer({
-      source: new VectorSource()
+      source: new VectorSource(),
+      style: redPolygonStyle
     })
 
     // create map
